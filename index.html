@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharable card generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            padding: 1rem;
+        }
+    
+        .card-container {
+            padding: 1rem;
+            width: 100%;
+            max-width: 350px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+    
+        .card-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+    
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        label {
+            font-weight: bold;
+        }
+    
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+    
+        textarea {
+            resize: vertical;
+            resize: horizontal;
+        }
+    
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        #successMessage {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            color: #4caf50;
+        }
+    
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>Sharable card link generator</h1>
+    <form id="yourFormId" class="container" action="/" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title/Wishing:</label>
+            <input id="title" class="form-control" name="title">
+        </div>
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" class="form-control" name="content"></textarea>
+        </div>
+        <input type="file" name="image"> <!-- Add this file input for image uploads -->
+        <button>ADD TO MONGODB</button>
+    </form>
+    <div id="successMessage" style="display: none;"></div>
+    <!-- Add this updated JavaScript code to your index.html file -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const successMessage = document.getElementById('successMessage');
+        
+        const form = document.getElementById('yourFormId'); // Replace with your actual form ID
+        
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the default form submission
+            
+            // Make a fetch request to your server when the form is submitted
+            const formData = new FormData(form);
+            const response = await fetch('/', {
+                method: 'POST',
+                body: formData,
+            });
+            
+            if (response.ok) {
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Display the success message and note link
+                    successMessage.textContent = result.message;
+                    successMessage.style.display = 'block';
+                    
+                    const noteLink = document.createElement('a');
+                    noteLink.href = result.noteLink;
+                    noteLink.textContent = 'View your note';
+                    
+                    successMessage.appendChild(document.createElement('br'));
+                    successMessage.appendChild(noteLink);
+                } else {
+                    // Handle the case where there was an error on the server
+                    successMessage.textContent = 'Error saving note.';
+                    successMessage.style.display = 'block';
+                }
+            } else {
+                // Handle non-OK responses here if needed
+                console.error('Server responded with a non-OK status:', response.status);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

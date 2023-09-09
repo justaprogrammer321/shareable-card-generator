@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Add CSS styles for the card container */
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+        }
+        .card {
+            border: 2px solid #ffa07a; /* Peach border color */
+            border-radius: 5px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            width: 300px; /* Adjust the width as needed */
+            background-color: #f7ff8e; /* White background */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem;
+        }
+        h1{
+            margin: 0;
+        }
+        p{
+            padding-bottom:0.25;
+        }
+
+        img {
+            border: 3px solid black;
+            max-width: 100%; /* Ensure the image doesn't overflow the card */
+        }
+    </style>
+    <title><%= note.title %></title>
+</head>
+<body>
+    <div class="card">
+        <h1><%= note.title %></h1>
+        <p><%= note.content %></p>
+        <% if (note.imageData && note.imageContentType) { %>
+            <img src="data:<%= note.imageContentType %>;base64,<%= note.imageData.toString('base64') %>" alt="<%= note.title %>">
+        <% } %>
+    </div>
+</body>
+</html>
