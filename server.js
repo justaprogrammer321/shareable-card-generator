@@ -72,8 +72,13 @@ app.get("/:id", (req, res) => {
             if (!note) {
                 res.status(404).send('Note not found.');
             } else {
+                // Generate the link to view the note details with the deployment-specific URL
+                const noteLink = `https://${vercelURL}/${note._id}`;
+
+                // Render the template with the note and noteLink
                 res.render('index', {
-                    note: note
+                    note: note,
+                    noteLink: noteLink
                 });
             }
         })
@@ -82,6 +87,7 @@ app.get("/:id", (req, res) => {
             res.status(500).send('Error finding note.');
         });
 });
+
 
 app.listen(port,function(){
     console.log("server is running on 3000")
