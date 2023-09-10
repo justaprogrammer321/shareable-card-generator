@@ -6,6 +6,12 @@ const ejs = require('ejs')
 const multer = require('multer'); // Added multer
 const path = require('path');
 const shortid = require('shortid');
+require('dotenv').config();
+const mongodbURI = process.env.MONGODB_URI;
+const vercelURL = process.env.VERCEL_URL;
+
+const port = process.env.PORT || 3000;
+
 
 const storage = multer.memoryStorage(); // Store files in memory
 const upload = multer({ storage: storage });
@@ -14,7 +20,8 @@ app.set('view engine','ejs')
 
 app.use(bodyParser.urlencoded({extended:true}));
 
-mongoose.connect("mongodb+srv://architbhrgv:3kdQH6YkRtY43VKE@cluster0.nx3uy3o.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect(mongodbURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
 const notesSchema ={
     _id: {
         type: String,
@@ -44,7 +51,7 @@ app.get("/",function (req,res){
         console.log('Note saved successfully.');
 
         // Generate the link to view the newly created note
-        const noteLink = `http://localhost:3000/${savedNote._id}`;
+        const noteLink = `https://${vercelURL}/${savedNote._id}`;
         
         // Send a JSON response with success message and note link
         res.json({ success: true, message: 'Note saved successfully!', noteLink });
@@ -76,6 +83,6 @@ app.get("/:id", (req, res) => {
         });
 });
 
-app.listen(3000,function(){
+app.listen(port,function(){
     console.log("server is running on 3000")
 })
