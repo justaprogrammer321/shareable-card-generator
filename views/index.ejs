@@ -105,12 +105,12 @@
     <div class="birthday-card">
         <!-- Inner -->
         <div class="cover-inner">
-            <img src="<%= note.imageData %>" width="100%">
+             <img src="data:<%= note.imageContentType %>;base64,<%= note.imageData %>" alt="<%= note.title %>">
         </div>
 
         <!-- Outer -->
         <div class="cover-outer">
-            <img src="<%= note.imageData %>" width="100%">
+             <img src="data:<%= note.imageContentType %>;base64,<%= note.imageData %>" alt="<%= note.title %>">
         </div>
 
         <!-- Text -->
