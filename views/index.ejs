@@ -44,7 +44,7 @@
         <h1><%= note.title %></h1>
         <p><%= note.content %></p>
         <% if (note.imageData && note.imageContentType) { %>
-            <img src="data:<%= note.imageContentType %>;base64,<%= note.imageData %>" alt="<%= note.title %>">
+            <img src="data:<%= note.imageContentType %>;base64,<%= note.imageData.toString('base64') %>" alt="<%= note.title %>">
         <% } %>
     </div>
 </body>
