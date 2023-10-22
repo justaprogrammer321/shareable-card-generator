@@ -132,8 +132,12 @@
             <p>Hope your day goes great!</p>
         </div>
     </div>
+    <script src="node_modules/js-confetti/confetti.min.js"></script>
     <script>
-        console.log("Hello")
+        // Trigger the confetti effect
+        const confettiSettings = { target: 'my-canvas' };
+        const confetti = new ConfettiGenerator(confettiSettings);
+        confetti.render();
     </script>
 </body>
 </html>
