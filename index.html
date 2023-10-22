@@ -100,7 +100,7 @@
             <label for="message">Message:</label>
             <textarea id="message" class="form-control" name="content"></textarea>
         </div>
-        <input type="file" name="image"> <!-- Add this file input for image uploads -->
+        <input type="file" name="image"> 
         <button>ADD TO MONGODB</button>
     </form>
     <div id="successMessage" style="display: none;"></div>
@@ -109,12 +109,11 @@
     document.addEventListener('DOMContentLoaded', () => {
         const successMessage = document.getElementById('successMessage');
         
-        const form = document.getElementById('yourFormId'); // Replace with your actual form ID
+        const form = document.getElementById('yourFormId'); 
         
         form.addEventListener('submit', async (event) => {
             event.preventDefault(); // Prevent the default form submission
             
-            // Make a fetch request to your server when the form is submitted
             const formData = new FormData(form);
             const response = await fetch('/', {
                 method: 'POST',
