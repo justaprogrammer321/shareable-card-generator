@@ -5,360 +5,146 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shareable card generator</title>
     <style>
-               body{
-            overflow: hidden;
-        }
-        .container {
-            position: absolute;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 5000px;
-            z-index: 1;
-        }
-
-        .card {
-            position: relative;
-            width:400px;
-            height: 600px;
-            transform-style: preserve-3d;
-            transition: transform 1.5s;
-        }
-        .card1 {
-            position: relative;
-            width:400px;
-            height: 600px;
-            transform-style: preserve-3d;
-            transition: transform 1.5s;
-        }
-
-        .card-inner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 1.5s;
-            transform-style: preserve-3d;
-            transform-origin: left;
-        }
-
-        .card.flipped .card-inner {
-            transform: rotateY(-180deg);
-            transform-origin: left;
-            background-color: #fff;
-        }
-
-        .card-front,
-        .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            color: #fff;
-            background-size: cover;
-            background-position: center;
-            background-color: #fff;
-        }
-
-        .card .card-front img{
-            width: fit-content;
-        }
-
-        .card-front {
-            background-color: rgb(106, 218, 246);
-        }
-
-        .card1 .card-front {
-            background-color: rgb(144, 211, 228);
-            display: flex;
-            align-items: flex-start;
-            width: 100%;
-        }
-
-        .card-back {
-            background-color: #46a0ee;
-            transform: rotateY(180deg);
-        }
-
-        .second-container {
-            position: absolute;
-            transition: transform 1.5s;
-            z-index: 1;
-            perspective: 5000px;
-        }
-
-        .flipped-card {
-        transform: translateX(100%) rotateY(-80deg);
-        transform-origin: left;
-        }
-        .flipped-card-back {
-            transform-origin: left;
-        }
-        #Main {
-            display: flex;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
-            position: relative;
-            justify-content: center;
-/*             
-            animation: slideUp 4s ease 1; */
+            padding: 1rem;
         }
-
-        /* @keyframes slideUp {
-            0% {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        } */
-    @media screen and (max-width: 400px) {
-                .card,
-                .card1 {
-                    width: 300px;
-                    height: 450px;
-                }
-            }
-
-   input[type="text"] {
-    display: block;
-    width: 80%;
-    padding-top: 20px;
-    box-sizing: border-box;
-    margin-top: 30px;
-    font-size: 18px;
-    z-index: 3;
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-    outline: none; /* Removes the focus border */
-    border: none;
-    word-wrap: break-word;
-}
-textarea {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    display: block;
-    margin-top: 30px;
-    box-sizing: border-box;
-    font-size: 15px;
-    z-index: 3;
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-    outline: none; /* Removes the focus border */
-    border: none;
-    word-wrap: break-word;
-    resize: none; /* Prevents resizing */
-}
-
-
-input[type="file"] {
-    display: none;
-}
-
-.custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-}
-
-.custom-file-upload::before {
-    content: 'Upload Image';
-}
-
-.custom-file-upload:hover {
-    background: #f1f1f1;
-}
+    
+        .card-container {
+            padding: 1rem;
+            width: 100%;
+            max-width: 350px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+    
+        .card-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+    
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        label {
+            font-weight: bold;
+        }
+    
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+    
+        textarea {
+            resize: vertical;
+            resize: horizontal;
+        }
+    
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        #successMessage {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            color: #4caf50;
+        }
+    
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
     
 </head>
 <body>
-    <div id="Main">
-        <div class="container" style=" z-index: 1;">
-            <div class="card" onclick="handleFlip(this)">
-                <div class="card-inner">
-                    <div class="card-front" style="background-image: url('this.png')"></div>
-                    <div class="card-back" id="imgpreview">
-                        <form id="form1" action="/" class="completeform" method="post">
-                            <label for="imgfile" class="custom-file-upload"></label>
-                            <input type="file" id="imgfile" accept="image/*">
-                        </form>
-                    </div>                
-                </div>
-            </div>
+    <h1>Shareable card link generator</h1>
+    <form id="yourFormId" class="container" action="/" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title/Wishing:</label>
+            <input id="title" class="form-control" name="title">
         </div>
-        <div class="second-container" style=" z-index: 0;">
-            <div class="card1">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <form id="form2" class="completeform" action="/" method="post" enctype="multipart/form-data">
-                            <input type="text" id="title" name="title" placeholder="title" value="Dear X,">
-                            <textarea name="content" id="message" cols="30" rows="20" placeholder="Message">On this special day, I want to take a moment to celebrate you and all the wonderful qualities that make you unique. Your kindness, compassion, and infectious energy light up every room you enter. You have a way of making everyone feel special and appreciated. May this birthday be the beginning of an incredible year filled with love, success, and cherished memories. Cheers to you and all that makes you extraordinary. Happy Birthday!</textarea>
-                            <button type="button" onclick="submitForms()">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" class="form-control" name="content"></textarea>
         </div>
-        <div id="successMessage" style="display: none; text-align: center; margin-top: 20px; color: #4caf50;"></div>
-    </div>
+        <input type="file" name="image"> 
+        <button>ADD TO MONGODB</button>
+    </form>
+    <div id="successMessage" style="display: none;"></div>
+    <!-- Add this updated JavaScript code to your index.html file -->
 <script>
-            document.addEventListener('DOMContentLoaded', () => {
-            function submitForms() {
-                const formData = new FormData();
-                const form1Data = new FormData(document.getElementById('form1'));
-                const form2Data = new FormData(document.getElementById('form2'));
-
-                // Append data from Form 1 (containing the image) to the combined FormData object
-                for (let pair of form1Data.entries()) {
-                    formData.append(pair[0], pair[1]);
+    document.addEventListener('DOMContentLoaded', () => {
+        const successMessage = document.getElementById('successMessage');
+        
+        const form = document.getElementById('yourFormId'); 
+        
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the default form submission
+            
+            const formData = new FormData(form);
+            const response = await fetch('/', {
+                method: 'POST',
+                body: formData,
+            });
+            
+            if (response.ok) {
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Display the success message and note link
+                    successMessage.textContent = result.message;
+                    successMessage.style.display = 'block';
+                    
+                    const noteLink = document.createElement('a');
+                    noteLink.href = result.noteLink;
+                    noteLink.textContent = 'View your note';
+                    
+                    successMessage.appendChild(document.createElement('br'));
+                    successMessage.appendChild(noteLink);
+                } else {
+                    // Handle the case where there was an error on the server
+                    successMessage.textContent = 'Error saving note.';
+                    successMessage.style.display = 'block';
                 }
-
-                // Append data from Form 2 (containing the title and message) to the combined FormData object
-                for (let pair of form2Data.entries()) {
-                    formData.append(pair[0], pair[1]);
-                }
-
-                // Send the combined data to the server
-                fetch('/', {
-                    method: 'POST',
-                    body: formData,
-                })
-                    .then(response => response.json())
-                    .then(result => {
-                        const successMessage = document.getElementById('successMessage');
-
-                        if (result.success) {
-                            // Display the success message and note link
-                            successMessage.textContent = result.message;
-                            successMessage.style.display = 'block';
-
-                            const noteLink = document.createElement('a');
-                            noteLink.href = result.noteLink;
-                            noteLink.textContent = 'View your note';
-
-                            successMessage.appendChild(document.createElement('br'));
-                            successMessage.appendChild(noteLink);
-                        } else {
-                            // Handle the case where there was an error on the server
-                            successMessage.textContent = 'Error saving note.';
-                            successMessage.style.display = 'block';
-                        }
-                    })
-                    .catch(error => {
-                        // Handle any errors during the fetch request
-                        const successMessage = document.getElementById('successMessage');
-                        successMessage.textContent = 'Error submitting forms: ' + error;
-                        successMessage.style.display = 'block';
-                    });
-            }
-
-            const submitButton = document.querySelector('button');
-            if (submitButton) {
-                submitButton.addEventListener('click', submitForms);
+            } else {
+                // Handle non-OK responses here if needed
+                console.error('Server responded with a non-OK status:', response.status);
             }
         });
-        
-        let isFlipped = false;
-
-function handleFlip(card) {
-    if (!isFlipped) {
-        isFlipped = true;
-        card.classList.add('flipped');
-        if (card.classList.contains('flipped')) {
-            const width = card.offsetWidth;
-            setTimeout(() => {
-                card.style.transform = `translateX(${width}px)`;
-                const secondCard = document.querySelector('.card1');
-                secondCard.classList.add('flipped-card');
-                secondCard.style.zIndex = 2; // Adjusting the z-index
-                document.addEventListener('click', handleSecondFlip);
-            }, 1500); // Delay in milliseconds
-        }
-    }
-}
-
-function handleSecondFlip() {
-    const secondCard = document.querySelector('.second-container');
-    const width = secondCard.offsetWidth;
-    secondCard.style.zIndex=2
-    const card1 = document.querySelector('.card1');
-    card1.classList.add('flipped-card-back');
-    card1.classList.remove('flipped-card');
-    const firstCard = document.querySelector('.card');
-    firstCard.style.transform = `rotateY(80deg)`;
-    firstCard.style.transformOrigin = `left`;
-    document.removeEventListener('click', handleSecondFlip);
-    document.addEventListener('click', handleThirdFlip);
-}
-
-function handleThirdFlip() {
-    const firstCard = document.querySelector('.card');
-    firstCard.style.transform = 'none';
-    firstCard.classList.remove('flipped');
-    const card1 = document.querySelector('.card1');
-    card1.classList.remove('flipped-card-back');
-    const secondCard = document.querySelector('.second-container');
-    secondCard.style.zIndex = 0; // Adjusting the z-index back to 0
-    document.removeEventListener('click', handleThirdFlip);
-    isFlipped = false;
-}
-
-// Function to slide up and change z-index
-function slideUpAndChangeZIndex() {
-    var mainContainer = document.getElementById('Main');
-    mainContainer.style.animation = 'slideUp 2s ease 1';
-    mainContainer.addEventListener('animationend', function () {
-        mainContainer.style.zIndex = '1';
-        var boxContainerConfetti = document.getElementsByClassName('container-box')[0];
-        boxContainerConfetti.style.zIndex = '-1';
     });
-}
-
-
-    const chooseFile = document.getElementById("imgfile");
-const imgPreview = document.getElementById("imgpreview");
-
-chooseFile.addEventListener("change", function () {
-getImgData();
-});
-
-function getImgData() {
-const files = chooseFile.files[0];
-if (files) {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(files);
-    fileReader.addEventListener("load", function () {
-        const cardBack = document.querySelector('.card .card-back');
-        cardBack.style.backgroundImage = `url('${this.result}')`;
-        cardBack.style.backgroundSize = 'cover';
-        cardBack.style.backgroundPosition = 'center';
-
-        // Hide the chooseFile input
-        chooseFile.style.display = 'none';
-    });
-}
-}
-
-const inputs = document.querySelectorAll('input');
-inputs.forEach(input => {
-    input.addEventListener('click', function (e) {
-        e.stopPropagation();
-    });
-});
-
-const messageTextarea = document.getElementById('message');
-messageTextarea.addEventListener('click', function (e) {
-    e.stopPropagation();
-});
-messageTextarea.addEventListener('focus', function (e) {
-    e.stopPropagation();
-});
 </script>
 
 </body>
