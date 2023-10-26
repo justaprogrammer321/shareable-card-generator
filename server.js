@@ -12,14 +12,12 @@ const vercelURL = process.env.VERCEL_URL;
 
 const port = process.env.PORT || 3000;
 
-
 const storage = multer.memoryStorage(); // Store files in memory
 const upload = multer({ storage: storage });
 
 app.set('view engine','ejs')
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 app.use(bodyParser.urlencoded({extended:true}));
 
