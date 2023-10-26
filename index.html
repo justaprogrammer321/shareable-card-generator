@@ -212,8 +212,7 @@ input[type="file"] {
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const successMessage = document.getElementById('successMessage');
-        
-        const form = document.getElementsByClassName('completeform'); 
+        const form = document.querySelector('.completeform');
         
         form.addEventListener('submit', async (event) => {
             event.preventDefault(); // Prevent the default form submission
