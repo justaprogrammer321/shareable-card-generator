@@ -1,144 +1,415 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= note.title %></title>
+    <title>Flipping Card</title>
     <style>
         body{
+            overflow: hidden;
+        }
+        .container {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 5000px;
+            z-index: 1;
+        }
+
+        .card {
+            position: relative;
+            width:400px;
+            height: 600px;
+            transform-style: preserve-3d;
+            transition: transform 1.5s;
+        }
+        .card1 {
+            position: relative;
+            width:400px;
+            height: 600px;
+            transform-style: preserve-3d;
+            transition: transform 1.5s;
+        }
+
+        .card-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 1.5s;
+            transform-style: preserve-3d;
+            transform-origin: left;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(-180deg);
+            transform-origin: left;
+            background-color: #fff;
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #fff;
+            background-size: cover;
+            background-position: center;
+            background-color: #fff;
+        }
+
+        .card .card-front img{
+            width: fit-content;
+        }
+
+        .card-front {
+            background-color: rgb(106, 218, 246);
+        }
+
+        .card1 .card-front {
+            background-color: rgb(144, 211, 228);
+            display: flex;
+            flex-direction: column;
+            justify-content:flex-start ;
+
+            width: 100%;
+        }
+        .card1 .card-front h2{
+            align-items: flex-start;
+        }
+        .card-back {
+            background-color: #46a0ee;
+            transform: rotateY(180deg);
+        }
+
+        .second-container {
+            position: absolute;
+            transition: transform 1.5s;
+            z-index: 1;
+            perspective: 5000px;
+        }
+
+        .flipped-card {
+        transform: translateX(100%) rotateY(-80deg);
+        transform-origin: left;
+        }
+        .flipped-card-back {
+            transform-origin: left;
+        }
+        #Main {
             display: flex;
             align-items: center;
-            justify-content: center;
-            height: auto;
-        }
-        .birthday-card {
+            height: 100vh;
             position: relative;
-            width: 400px;
-            height: 495px;
-            border: 10px solid #ef5050;
-            margin: 60px auto 0 auto;
-            background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(rgba(255, 255, 255, 0.5))), url("https://images.unsplash.com/photo-1527481138388-31827a7c94d5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXxBT3o0SFFDbVdEa3x8ZW58MHx8fHw%3D&w=1000&q=80");
-            background-image: linear-gradient(to bottom, white, rgba(255, 255, 255, 0.5)), url("https://images.unsplash.com/photo-1527481138388-31827a7c94d5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXxBT3o0SFFDbVdEa3x8ZW58MHx8fHw%3D&w=1000&q=80");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+            justify-content: center;
+            
+            animation: slideUp 4s ease 1;
         }
-        .birthday-card .text {
-            width: 80%;
-            height: 80%;
-            margin: auto;
-            font-family: 'Nobile', sans-serif;
-        }
-        .birthday-card .text > p {
-            font-size: 1.1em;
-            color: #331717;
-            list-style: 1.4;
-            font-style: italic;
-            text-align: center;
-            margin: 30px auto 0 auto;
-        }
-        .birthday-card .text .title {
-            font-size: 1.5em;
-            margin: 60px auto 60px auto;
-        }
-        .birthday-card .cover-outer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            margin: -10px 0 0 -10px;
-            border: 10px solid #ef5050;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
-            -webkit-transform: perspective(800px) rotateY(0deg);
-            transform: perspective(800px) rotateY(0deg);
-            -webkit-transition: all 0.8s ease-in-out;
-            transition: all 0.8s ease-in-out;
-        }
-        .birthday-card .cover-outer img {
-            -webkit-box-shadow: 0px 6px 11px 7px rgba(0, 0, 0, 0.22);
-            box-shadow: 0px 6px 11px 7px rgba(0, 0, 0, 0.22);
-            border-radius: 5px;
-            width: 400px;
-            height: 495px;
-        }
-        .birthday-card .cover-inner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 10px solid #ef5050;
-            background-color: #ef5050;
-            margin: -10px 0px 0 -10px;
-            -webkit-backface-visibility: visible;
-            backface-visibility: visible;
-            -webkit-filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
-            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
-            -webkit-transform: perspective(800px) rotateY(0deg);
-            transform: perspective(800px) rotateY(0deg);
-            -webkit-transition: all 0.8s ease-in-out;
-            transition: all 0.8s ease-in-out;
-            overflow: hidden;
 
+        @keyframes slideUp {
+            0% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
-        .birthday-card .cover-inner img {
-            -webkit-transform: rotateY(170deg);
-            transform: rotateY(170deg);
-            height:100%;
-            width:100%;
+    @media screen and (max-width: 400px) {
+                .card,
+                .card1 {
+                    width: 300px;
+                    height: 450px;
+                }
+            }
+
+   h2{
+    display: flex;
+    width: 80%;
+    padding-top: 20px;
+    box-sizing: border-box;
+    margin-top: 30px;
+    font-size: 18px;
+    z-index: 3;
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    outline: none; /* Removes the focus border */
+    border: none;
+    word-wrap: break-word;
+}
+p{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-top: 30px;
+    width: 80%;
+    box-sizing: border-box;
+    font-size: 15px;
+    z-index: 3;
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    border: none;
+    word-wrap: break-word;
+    resize: none; /* Prevents resizing */
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.custom-file-upload::before {
+    content: 'Upload Image';
+}
+
+.custom-file-upload:hover {
+    background: #f1f1f1;
+}
+
+    </style>
+    <style>
+        .backgroundconfetti{
+            top: 0;
+            left: 0;
+            position: absolute;
+            z-index: -1;
         }
-        .birthday-card:hover .cover-outer {
-            -webkit-transform: perspective(800px) rotateY(-170deg);
-            transform: perspective(800px) rotateY(-170deg);
-            height:100%;
-            width:100%;
+            *{
+            margin: 0;
+            padding: 0;
         }
-        .birthday-card:hover .cover-inner {
-            -webkit-transform: perspective(800px) rotateY(-170deg);
-            transform: perspective(800px) rotateY(-170deg);
-            -webkit-box-shadow: 7px 0 5px 0 rgba(0, 0, 0, 0.3), inset 2px 0px 15px 0px rgba(0, 0, 0, 0.1);
-            box-shadow: 7px 0 5px 0 rgba(0, 0, 0, 0.3), inset 2px 0px 15px 0px rgba(0, 0, 0, 0.1);
+        @keyframes confetti-slow {
+            0% { transform: translate3d(0, 0, 0) rotateX(0) rotateY(0); }
+            100% { transform: translate3d(25px, 105vh, 0) rotateX(360deg) rotateY(180deg); }
+        }
+
+        @keyframes confetti-medium {
+            0% { transform: translate3d(0, 0, 0) rotateX(0) rotateY(0); }
+            100% { transform: translate3d(100px, 105vh, 0) rotateX(100deg) rotateY(360deg); }
+        }
+
+        @keyframes confetti-fast {
+            0% { transform: translate3d(0, 0, 0) rotateX(0) rotateY(0); }
+            100% { transform: translate3d(-50px, 105vh, 0) rotateX(10deg) rotateY(250deg); }
+        }
+     
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .text-container div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            font-size: 24px;
+            animation: fadeOut 2s ease 1;
+        }
+        .container-box {
+            width: 100vw;
+            height: 100vh;
+            background: #f0f0f000;
+            z-index: 4;
+        }
+
+        .confetti-container {
+            perspective: 700px;
+            position: absolute;
+            overflow: hidden;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .confetti {
+            position: absolute;
+            z-index: 1;
+            top: -10px;
+            border-radius: 0%;
+        }
+
+        .confetti--animation-slow {
+            animation: confetti-slow 2.25s linear 1 forwards;
+        }
+
+        .confetti--animation-medium {
+            animation: confetti-medium 1.75s linear 1 forwards;
+        }
+
+        .confetti--animation-fast {
+            animation: confetti-fast 1.25s linear 1 forwards;
         }
     </style>
 </head>
+
 <body>
-    <div class="birthday-card">
-        <!-- Inner -->
-        <div class="cover-inner">
-              <% if (note.imageData && note.imageContentType) { %>
-                 <img src="data:<%= note.imageContentType %>;base64,<%= note.imageData.toString('base64') %>" alt="<%= note.title %>">
-              <% } %>
-        </div>
-
-        <!-- Outer -->
-        <div class="cover-outer">
-                <img src="/images/cardcover.png">
-        </div>
-
-        <!-- Text -->
-        <div class="text">
-            <p class="title">
-                <%= note.title %>
-            </p>
-            <p>
-                <%= note.content %>
-            </p>
-            <p>Hope your day goes great!</p>
+<div id="Main">
+    <div class="container" style=" z-index: 1;">
+        <div class="card" onclick="handleFlip(this)">
+            <div class="card-inner">
+                <div class="card-front" style="background-image: url('this.png')"></div>
+                <div class="card-back" id="imgpreview">
+                    <% if (note.imageData && note.imageContentType) { %>
+                        <img src="data:<%= note.imageContentType %>;base64,<%= note.imageData.toString('base64') %>" alt="<%= note.title %>">
+                     <% } %>
+                </div>                
+            </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/confetti.min.js"></script>
+    <div class="second-container" style=" z-index: 0;">
+        <div class="card1">
+            <div class="card-inner">
+                <div class="card-front">
+                       <h2 class="title"><%= note.title %></h2>
+                       <p><%= note.content %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <script>
-        // Trigger the confetti effect
-        const confettiSettings = { target: 'my-canvas' };
-        const confetti = new ConfettiGenerator(confettiSettings);
-        confetti.render();
-    </script>
-</body>
-</html>
+    let isFlipped = false;
 
+    function handleFlip(card) {
+        if (!isFlipped) {
+            isFlipped = true;
+            card.classList.add('flipped');
+            if (card.classList.contains('flipped')) {
+                const width = card.offsetWidth;
+                setTimeout(() => {
+                    card.style.transform = `translateX(${width}px)`;
+                    const secondCard = document.querySelector('.card1');
+                    secondCard.classList.add('flipped-card');
+                    secondCard.style.zIndex = 2; // Adjusting the z-index
+                    document.addEventListener('click', handleSecondFlip);
+                }, 1500); // Delay in milliseconds
+            }
+        }
+    }
+
+    function handleSecondFlip() {
+        const secondCard = document.querySelector('.second-container');
+        const width = secondCard.offsetWidth;
+        secondCard.style.zIndex=2
+        const card1 = document.querySelector('.card1');
+        card1.classList.add('flipped-card-back');
+        card1.classList.remove('flipped-card');
+        const firstCard = document.querySelector('.card');
+        firstCard.style.transform = `rotateY(80deg)`;
+        firstCard.style.transformOrigin = `left`;
+        document.removeEventListener('click', handleSecondFlip);
+        document.addEventListener('click', handleThirdFlip);
+    }
+
+    function handleThirdFlip() {
+        const firstCard = document.querySelector('.card');
+        firstCard.style.transform = 'none';
+        firstCard.classList.remove('flipped');
+        const card1 = document.querySelector('.card1');
+        card1.classList.remove('flipped-card-back');
+        const secondCard = document.querySelector('.second-container');
+        secondCard.style.zIndex = 0; // Adjusting the z-index back to 0
+        document.removeEventListener('click', handleThirdFlip);
+        isFlipped = false;
+    }
+
+    // Function to slide up and change z-index
+    function slideUpAndChangeZIndex() {
+        var mainContainer = document.getElementById('Main');
+        mainContainer.style.animation = 'slideUp 2s ease 1';
+        mainContainer.addEventListener('animationend', function () {
+            mainContainer.style.zIndex = '1';
+            var boxContainerConfetti = document.getElementsByClassName('container-box')[0];
+            boxContainerConfetti.style.zIndex = '-1';
+        });
+    }
+</script>
+<div class="backgroundconfetti">
+<div class="text-container">
+    <div>One of loved ones has sent you this</div>
+</div>
+<div class="js-container container-box"></div>
+</div>
+<script>
+    function Confettiful(el) {
+        this.el = el;
+        this.containerEl = null;
+
+        this.confettiFrequency = 3;
+        this.confettiColors = ['#fce18a', '#ff726d', '#b48def', '#f4306d'];
+        this.confettiAnimations = ['slow', 'medium', 'fast'];
+
+        this._setupElements();
+        this._fadeInText();
+    }
+
+    Confettiful.prototype._setupElements = function () {
+        const containerEl = document.createElement('div');
+        const elPosition = this.el.style.position;
+
+        if (elPosition !== 'relative' || elPosition !== 'absolute') {
+            this.el.style.position = 'relative';
+        }
+
+        containerEl.classList.add('confetti-container');
+
+        this.el.appendChild(containerEl);
+
+        this.containerEl = containerEl;
+    };
+
+    Confettiful.prototype._fadeInText = function () {
+        const textEl = document.querySelector('.text-container div');
+        textEl.style.animation = 'fadeOut 4s ease 1';
+        setTimeout(() => {
+            textEl.style.display = 'none';
+            this._renderConfetti();
+        }, 4000);
+    }
+
+    Confettiful.prototype._renderConfetti = function () {
+        this.confettiInterval = setInterval(() => {
+            const confettiEl = document.createElement('div');
+            const confettiSize = (Math.floor(Math.random() * 3) + 7) + 'px';
+            const confettiBackground = this.confettiColors[Math.floor(Math.random() * this.confettiColors.length)];
+            const confettiLeft = (Math.floor(Math.random() * this.el.offsetWidth)) + 'px';
+            const confettiAnimation = this.confettiAnimations[Math.floor(Math.random() * this.confettiAnimations.length)];
+
+            confettiEl.classList.add('confetti', 'confetti--animation-' + confettiAnimation);
+            confettiEl.style.left = confettiLeft;
+            confettiEl.style.width = confettiSize;
+            confettiEl.style.height = confettiSize;
+            confettiEl.style.backgroundColor = confettiBackground;
+
+            confettiEl.removeTimeout = setTimeout(function () {
+                confettiEl.parentNode.removeChild(confettiEl);
+            }, 3000);
+
+            this.containerEl.appendChild(confettiEl);
+        }, 25);
+    };
+
+    window.confettiful = new Confettiful(document.querySelector('.js-container'));
+</script>
+
+</body>
+
+</html>
