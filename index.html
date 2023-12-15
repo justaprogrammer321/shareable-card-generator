@@ -180,6 +180,7 @@ z-index: -1;
 }
 </style>
 <body>
+    <div style="text-align: center; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; padding: 0%;">Click the card and fill in the details</div>
     <div id="Main">
         <div class="container" style=" z-index: 1;">
             <div class="card" onclick="handleFlip(this)">
@@ -202,13 +203,13 @@ z-index: -1;
                             <input type="text" id="title" name="title" placeholder="title" value="Dear X,">
                             <textarea name="content" id="message" cols="30" rows="20" placeholder="Message" >On this special day, I want to take a moment to celebrate you and all the wonderful qualities that make you unique. Your kindness, compassion, and infectious energy light up every room you enter. You have a way of making everyone feel special and appreciated. May this birthday be the beginning of an incredible year filled with love, success, and cherished memories. Cheers to you and all that makes you extraordinary. Happy Birthday!</textarea>
                             <button id="submitButton" type="submit">Submit</button>
+                            <div id="successMessage" style="display: none;"></div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="successMessage" style="display: none;"></div>
     <!-- Add this updated JavaScript code to your index.html file -->
     <script>
         let isFlipped = false;
@@ -298,7 +299,20 @@ z-index: -1;
                 e.stopPropagation();
             });
         });
-    
+
+        const chooseFile1 = document.getElementById('imgfile');
+
+        chooseFile1.addEventListener('change', function (e) {
+            e.stopPropagation();
+            getImgData();
+        });
+
+        const submitButton = document.getElementById('submitButton');
+
+        submitButton.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+
         const messageTextarea = document.getElementById('message');
         messageTextarea.addEventListener('click', function (e) {
             e.stopPropagation();
