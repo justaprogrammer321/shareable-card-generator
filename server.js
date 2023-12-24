@@ -37,8 +37,14 @@ const notesSchema = new mongoose.Schema({
         default: Date.now,
         // Expires after 3 minutes (3 * 60 * 1000 milliseconds)
         expires: 180 // TTL index in seconds (180 seconds = 3 minutes)
+    },
+    theme: {
+        type: String,
+        enum: ['default', 'christmas', 'birthday'], // Add any other theme options
+        default: 'default' // Set default theme to 'default'
     }
 });
+
 
 const Note = mongoose.model("Note", notesSchema);
 
