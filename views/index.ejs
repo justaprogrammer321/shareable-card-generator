@@ -6,11 +6,7 @@
     <title>Flipping Card</title>
     <style>
         body{
-            background-image: url('/images/background.jpg');
             overflow: hidden;
-            background-size: cover;
-            background-position: center;
-            z-index: -10;
         }
         .container {
             position: absolute;
@@ -182,7 +178,7 @@ p{
     object-fit: cover;
 }
     </style>
-    <!-- <style>
+    <style>
         .backgroundconfetti{
             top: 0;
             left: 0;
@@ -264,8 +260,7 @@ p{
         .confetti--animation-fast {
             animation: confetti-fast 1.25s linear 1 forwards;
         }
-    </style> -->
-
+    </style>
 </head>
 
 <body>
@@ -273,7 +268,7 @@ p{
     <div class="container" style=" z-index: 1;">
         <div class="card" onclick="handleFlip(this)">
             <div class="card-inner">
-                <div class="card-front" style="background-image: url('/images/this.png')"></div>
+                <div class="card-front" style="background-image: url('images/this.png')"></div>
                 <div class="card-back" id="imgpreview">
                     <% if (note.imageData && note.imageContentType) { %>
                         <img src="data:<%= note.imageContentType %>;base64,<%= note.imageData.toString('base64') %>" alt="<%= note.title %>">
@@ -352,7 +347,7 @@ p{
 </script>
 <div class="backgroundconfetti">
 <div class="text-container">
-    <div style="color: #fff;">One of loved ones has sent you this</div>
+    <div>One of loved ones has sent you this</div>
 </div>
 <div class="js-container container-box"></div>
 </div>
