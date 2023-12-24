@@ -36,7 +36,7 @@ const notesSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
         // Expires after 3 minutes (3 * 60 * 1000 milliseconds)
-        expires: 180 // TTL index in seconds (180 seconds = 3 minutes)
+        expires: 86400 // TTL index in seconds (180 seconds = 3 minutes)
     },
     theme: {
         type: String,
