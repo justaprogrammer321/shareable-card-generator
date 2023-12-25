@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shareable card generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
     body{
@@ -180,7 +181,12 @@ z-index: -1;
 }
 </style>
 <body>
-    <div style="text-align: center; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; padding: 0%;">Click the card and fill in the details</div>
+    <div style="text-align: center; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;  padding: 0%; position: absolute; display: flex; align-items: center; justify-content: center;">Click the card and Edit the details(all text is editable inside the card) then click submit it will generate a link copy that link and share it to your friends and family.Site created by:
+             <a href="">
+                <i class="fa fa-twitter" style="color: #46a0ee;" aria-hidden="true"></i> 
+                @ArchitBhargav03
+             </a> 
+    </div>
     <div id="Main">
         <div class="container" style=" z-index: 1;">
             <div class="card" onclick="handleFlip(this)">
@@ -201,7 +207,7 @@ z-index: -1;
                     <div class="card-front">
                         <form id="yourFormId" class="completeform" action="/" method="post" enctype="multipart/form-data">
                             <input type="text" id="title" name="title" placeholder="title" value="Dear X,">
-                            <textarea name="content" id="message" cols="30" rows="20" placeholder="Message" >On this special day, I want to take a moment to celebrate you and all the wonderful qualities that make you unique. Your kindness, compassion, and infectious energy light up every room you enter. You have a way of making everyone feel special and appreciated. May this birthday be the beginning of an incredible year filled with love, success, and cherished memories. Cheers to you and all that makes you extraordinary. Happy Birthday!</textarea>
+                            <textarea name="content" id="message" cols="30" rows="20" placeholder="Message" >As twinkling lights adorn the trees and the air fills with the spirit of love, I send my heartfelt wishes for a Christmas filled with laughter, wonder, and the embrace of cherished ones. And as we bid farewell to this year, may the New Year ahead bring you an abundance of joy, success, and opportunities. Here's to new beginnings, beautiful moments, and the promise of dreams fulfilled. Merry Christmas and a Happy New Year</textarea>
                             <button id="submitButton" type="submit">Submit</button>
                             <div id="successMessage" style="display: none;"></div>
                         </form>
