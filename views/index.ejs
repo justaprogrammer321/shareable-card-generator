@@ -268,7 +268,7 @@ p{
     <div class="container" style=" z-index: 1;">
         <div class="card" onclick="handleFlip(this)">
             <div class="card-inner">
-                <div class="card-front" style="background-image: url('images/this.png')"></div>
+                <div class="card-front" style="background-image: url('/images/this.png')"></div>
                 <div class="card-back" id="imgpreview">
                     <% if (note.imageData && note.imageContentType) { %>
                         <img src="data:<%= note.imageContentType %>;base64,<%= note.imageData.toString('base64') %>" alt="<%= note.title %>">
