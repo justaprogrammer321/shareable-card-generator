@@ -6,6 +6,7 @@ const ejs = require('ejs');
 const multer = require('multer');
 const path = require('path');
 const shortid = require('shortid');
+const cors=require('cors');
 require('dotenv').config();
 const mongodbURI = process.env.MONGODB_URI;
 const vercelURL = process.env.VERCEL_URL;
@@ -18,6 +19,7 @@ const upload = multer({ storage: storage });
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
