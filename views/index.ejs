@@ -45,7 +45,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            text-align: center;
+            text-align: left;
             transition: transform 1.5s;
             transform-style: preserve-3d;
             transform-origin: left;
@@ -393,11 +393,11 @@ p{
 
     Confettiful.prototype._fadeInText = function () {
         const textEl = document.querySelector('.text-container div');
-        textEl.style.animation = 'fadeOut 4s ease 1';
+        textEl.style.animation = 'fadeOut 5s ease 1';
         setTimeout(() => {
             textEl.style.display = 'none';
             this._renderConfetti();
-        }, 4000);
+        }, 5000);
     }
 
     Confettiful.prototype._renderConfetti = function () {
