@@ -67,7 +67,7 @@ app.post("/", upload.single('image'), function (req, res) {
         .then((savedNote) => {
             console.log('Note saved successfully.');
 
-            const noteLink = `http://192.168.100.129:8000/${savedNote._id}`;
+            const noteLink = `https://${vercelURL}/${savedNote._id}`;
 
             res.json({ success: true, message: 'Note saved successfully!', noteLink });
         })
