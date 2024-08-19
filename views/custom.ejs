@@ -8,14 +8,6 @@
     <style>
         body{
             overflow: hidden;
-            display:flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-        #changing{
-            position: absolute;
-            text-align: center;
         }
         .container {
             position: absolute;
@@ -86,7 +78,8 @@
             display: flex;
             flex-direction: column;
             justify-content:flex-start ;
-
+            background-size: cover;
+            background-position: center;
             width: 100%;
         }
         .card1 .card-front h2{
@@ -273,7 +266,6 @@ p{
 </head>
 
 <body>
-<p id="changing">Click the card to turn the page</p>
 <div id="Main">
     <div class="container" style=" z-index: 1;">
         <div class="card" onclick="handleFlip(this)">
@@ -290,10 +282,7 @@ p{
     <div class="second-container" style=" z-index: 0;">
         <div class="card1">
             <div class="card-inner">
-                <div class="card-front">
-                       <h2 class="title"><%= note.title %></h2>
-                       <p><%= note.content %></p>
-                </div>
+                <div class="card-front" style="background-image: url('<%= note.textsideimg %>');"></div>
             </div>
         </div>
     </div>
@@ -355,14 +344,12 @@ p{
         });
     }
 </script>
-
 <div class="backgroundconfetti">
-    <div class="text-container">
-        <div>One of loved ones has sent you this</div>
-    </div>
-    <div class="js-container container-box"></div>
+<div class="text-container">
+    <div>One of loved ones has sent you this</div>
 </div>
-
+<div class="js-container container-box"></div>
+</div>
 <script>
     function Confettiful(el) {
         this.el = el;
@@ -428,4 +415,3 @@ p{
 </body>
 
 </html>
-

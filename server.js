@@ -6,20 +6,26 @@ const ejs = require('ejs');
 const multer = require('multer');
 const path = require('path');
 const shortid = require('shortid');
-const cors=require('cors');
+const cors = require('cors');
 require('dotenv').config();
+
 const mongodbURI = process.env.MONGODB_URI;
 const vercelURL = process.env.VERCEL_URL;
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const upload = multer({
+    storage: storage,
+    limits: {
+        fieldSize: 10 * 1024 * 1024, // Increase the limit to 10 MB
+    }
+});
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors())
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -32,18 +38,17 @@ const notesSchema = new mongoose.Schema({
     },
     title: String,
     content: String,
-    imageData: Buffer, // Binary image data
-    imageContentType: String, // MIME type of the image
+    frontimg: String,
+    innerimg: String,
+    textsideimg: String,
     createdAt: {
         type: Date,
         default: Date.now,
-        // Expires after 3 minutes (3 * 60 * 1000 milliseconds)
-        expires: 180 // TTL index in seconds (180 seconds = 3 minutes)
+        expires: 86400 // TTL index in seconds (86400 seconds = 24 hours)
     }
 });
 
-
-const Note = mongoose.model("Note", notesSchema);
+const Note = mongoose.model("carddata", notesSchema);
 
 app.get("/", function (req, res) {
     res.sendFile(__dirname + '/index.html');
@@ -53,15 +58,16 @@ app.post("/", upload.single('image'), function (req, res) {
     let newNote = new Note({
         title: req.body.title,
         content: req.body.content,
-        imageData: req.file.buffer,
-        imageContentType: req.file.mimetype,
+        innerimg: req.body.innerimg,
+        frontimg: req.body.frontimg,
+        textsideimg: req.body.textsideimg
     });
 
     newNote.save()
         .then((savedNote) => {
             console.log('Note saved successfully.');
 
-            const noteLink = `https://${vercelURL}/${savedNote._id}`;
+            const noteLink = `http://192.168.100.129:8000/${savedNote._id}`;
 
             res.json({ success: true, message: 'Note saved successfully!', noteLink });
         })
@@ -81,8 +87,12 @@ app.get("/:id", (req, res) => {
                 res.status(404).send('Note not found.');
             } else {
                 const noteLink = `https://${vercelURL}/${note._id}`;
+                let pagetoberendered = "index";
+                if (note.textsideimg) {
+                    pagetoberendered = "custom";
+                }
 
-                res.render('index', {
+                res.render(pagetoberendered, {
                     note: note,
                     noteLink: noteLink
                 });
@@ -92,12 +102,6 @@ app.get("/:id", (req, res) => {
             console.error('Error finding note:', err);
             res.status(500).send('Error finding note.');
         });
-});
-
-// Create TTL index after establishing the connection to the database
-mongoose.connection.once('open', () => {
-    Note.createIndexes({ createdAt: 1 }, { expireAfterSeconds: 180 });
-    console.log('TTL index created successfully.');
 });
 
 app.listen(port, function () {
